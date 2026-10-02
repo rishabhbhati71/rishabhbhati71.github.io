@@ -72,6 +72,15 @@ a:hover { color: var(--accent); }
     margin-bottom: 80px;
 }
 
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 32px;
+    border: 1px solid var(--line);
+}
+
 .hero h1 {
     font-size: clamp(3.5rem, 8vw, 6.5rem);
     line-height: 0.9;
