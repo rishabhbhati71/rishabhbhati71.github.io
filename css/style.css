@@ -118,3 +118,87 @@ a:focus-visible {
     transform: translateY(-2px);
     opacity: 0.8;
 }
+
+/* --- New Sections Styling --- */
+.hero {
+    margin-top: 12vh;
+    margin-bottom: 80px;
+}
+
+.hero h1 {
+    margin-bottom: 12px; /* Tighter spacing for subtitle */
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--ink-muted);
+    font-weight: 500;
+}
+
+.section-padding {
+    margin-bottom: 80px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    letter-spacing: -0.022em;
+}
+
+/* Enforce maximum reading width (approx 65 chars) */
+.prose {
+    max-width: 65ch; 
+}
+
+.prose p {
+    margin-bottom: 16px;
+    font-size: 1.0625rem;
+}
+
+.prose p:last-child {
+    margin-bottom: 0;
+}
+
+/* Minimalist Email Link */
+.email-link {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink-faint);
+    padding-bottom: 4px;
+}
+
+.email-link:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+}
+
+/* --- Responsiveness (Phones & Tablets) --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px; /* Slightly tighter on mobile */
+    }
+
+    .hero {
+        margin-top: 8vh;
+        margin-bottom: 56px;
+    }
+    
+    h1 {
+        /* Fluid typography for mobile screens */
+        font-size: clamp(2.5rem, 10vw, 3.5rem); 
+    }
+    
+    .subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .section-padding {
+        margin-bottom: 56px;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+}
