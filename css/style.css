@@ -1,10 +1,9 @@
 /* 
  * CSS for rishabhbhati71.github.io
- * Theme: Elite Portfolio Design System (Anti-Slop)
+ * Theme: Elite Editorial Portfolio
  */
 
 :root {
-    /* Colors - Light Mode (Premium Warm) */
     --paper: #FAF9F7;
     --surface: #FFFFFF;
     --surface-2: #F5F0E8;
@@ -13,13 +12,10 @@
     --ink-muted: #8A8578;
     --ink-faint: #D6CDC2;
     --accent: #E85D3A;
-
-    /* Typography */
     --display: 'Instrument Serif', Georgia, serif;
     --text: 'Geist', system-ui, sans-serif;
 }
 
-/* Optional Dark Mode - can be triggered later */
 @media (prefers-color-scheme: dark) {
     :root {
         --paper: #12110F;
@@ -27,178 +23,143 @@
         --surface-2: #25221D;
         --line: #33302A;
         --ink: #E8E4DC;
-        --ink-muted: #8A8578;
+        --ink-muted: #A19C91;
         --ink-faint: #4A4740;
         --accent: #FF8A5B;
     }
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 100%;
-    font-optical-sizing: auto;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 100%; font-optical-sizing: auto; scroll-behavior: smooth; }
 
 body {
     font-family: var(--text);
     background-color: var(--paper);
     color: var(--ink);
     line-height: 1.6;
-    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
+/* Tighter container for a high-end editorial feel */
 .container {
-    max-width: 1100px;
+    max-width: 800px; 
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
     font-family: var(--display);
     color: var(--ink);
-    font-weight: 400; /* Instrument Serif shines at 400 weight */
-}
-
-h1 {
-    font-size: clamp(2.75rem, 7vw, 5.5rem);
-    line-height: 0.98;
-    letter-spacing: -0.032em;
-    font-variation-settings: "opsz" 144;
+    font-weight: 400;
 }
 
 a {
     color: var(--ink);
     text-decoration: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    transition: all 0.2s ease;
 }
+a:hover { color: var(--accent); }
 
-a:hover {
-    color: var(--accent);
-}
-
-a:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-}
-
-/* Hero Section */
+/* --- HERO SECTION --- */
+/* This makes the top section act like a real website header, taking up 70% of the screen height */
 .hero {
-    margin-top: 120px;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .hero h1 {
-    margin-bottom: 24px;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+}
+
+.subtitle {
+    font-size: 1.75rem;
+    color: var(--ink-muted);
+    font-weight: 300;
+    margin-bottom: 40px;
+    font-family: var(--text);
 }
 
 .social-links {
-    margin-top: 24px;
     display: flex;
     gap: 24px;
 }
 
 .social-icon {
-    width: 24px; /* Default size, overridden by HTML width/height for safety */
-    height: 24px;
+    width: 28px;
+    height: 28px;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Invert icons in dark mode so they are visible against the dark background */
 @media (prefers-color-scheme: dark) {
-    .social-icon {
-        filter: invert(1) brightness(0.9);
-    }
+    /* If an icon has a solid background, the invert might make it a white square. We soften it slightly. */
+    .social-icon { filter: invert(1) brightness(0.85); }
 }
+.social-icon:hover { transform: translateY(-3px); opacity: 0.7; }
 
-.social-icon:hover {
-    transform: translateY(-2px);
-    opacity: 0.8;
-}
-
-/* --- New Sections Styling --- */
-.hero {
-    margin-top: 12vh;
-    margin-bottom: 80px;
-}
-
-.hero h1 {
-    margin-bottom: 12px; /* Tighter spacing for subtitle */
-}
-
-.subtitle {
-    font-size: 1.5rem;
-    color: var(--ink-muted);
-    font-weight: 500;
-}
-
+/* --- SECTIONS --- */
 .section-padding {
-    margin-bottom: 80px;
+    margin-bottom: 120px;
 }
 
 h2 {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    letter-spacing: -0.022em;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
 }
 
-/* Enforce maximum reading width (approx 65 chars) */
+/* --- ABOUT PROSE --- */
 .prose {
-    max-width: 65ch; 
+    max-width: 65ch;
+    font-size: 1.125rem;
+    line-height: 1.8;
 }
 
 .prose p {
-    margin-bottom: 16px;
-    font-size: 1.0625rem;
+    margin-bottom: 24px;
+    color: var(--ink-muted);
 }
 
-.prose p:last-child {
-    margin-bottom: 0;
+/* The first paragraph acts as a 'lead' (larger, brighter) to draw the eye in */
+.prose p:first-child {
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 32px;
 }
 
-/* Minimalist Email Link */
+/* --- CONTACT --- */
+.contact {
+    border-top: 1px solid var(--line);
+    padding-top: 80px;
+    padding-bottom: 120px;
+}
+
 .email-link {
     display: inline-block;
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 2.5rem;
+    font-family: var(--display);
     color: var(--ink);
-    border-bottom: 1px solid var(--ink-faint);
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 4px;
 }
-
 .email-link:hover {
     color: var(--accent);
-    border-bottom-color: var(--accent);
 }
 
-/* --- Responsiveness (Phones & Tablets) --- */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 16px; /* Slightly tighter on mobile */
-    }
-
-    .hero {
-        margin-top: 8vh;
-        margin-bottom: 56px;
-    }
-    
-    h1 {
-        /* Fluid typography for mobile screens */
-        font-size: clamp(2.5rem, 10vw, 3.5rem); 
-    }
-    
-    .subtitle {
-        font-size: 1.25rem;
-    }
-    
-    .section-padding {
-        margin-bottom: 56px;
-    }
-    
-    h2 {
-        font-size: 1.75rem;
-    }
+    .hero { min-height: 50vh; padding-top: 80px;}
+    h2 { font-size: 2.5rem; }
+    .email-link { font-size: 1.75rem; }
+    .prose { font-size: 1rem; }
+    .prose p:first-child { font-size: 1.25rem; }
+    .section-padding { margin-bottom: 80px; }
 }
