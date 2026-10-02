@@ -1,36 +1,49 @@
-/* 
+/*
  * CSS for rishabhbhati71.github.io
- * Theme: Elite Editorial Portfolio
+ * Theme: Warm Editorial (see design.md)
  */
 
 :root {
-    --paper: #FAF9F7;
+    /* Colour: warm paper neutrals, one terracotta accent */
+    --paper: #F6F3EE;
     --surface: #FFFFFF;
-    --surface-2: #F5F0E8;
-    --line: #E8E4DC;
-    --ink: #1E1C18;
-    --ink-muted: #8A8578;
-    --ink-faint: #D6CDC2;
-    --accent: #E85D3A;
-    --display: 'Instrument Serif', Georgia, serif;
-    --text: 'Geist', system-ui, sans-serif;
+    --line: #DDD7CC;
+    --ink: #1B1915;
+    --ink-muted: #666155;
+    --ink-faint: #B9B2A5;
+    --accent: #C4502D;
+
+    /* Type */
+    --display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+    --text: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+    /* Layout */
+    --max: 1240px;
+    --gutter: clamp(20px, 5vw, 64px);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --paper: #12110F;
-        --surface: #1E1C18;
-        --surface-2: #25221D;
-        --line: #33302A;
-        --ink: #E8E4DC;
-        --ink-muted: #A19C91;
-        --ink-faint: #4A4740;
-        --accent: #FF8A5B;
+        --paper: #11100E;
+        --surface: #1B1915;
+        --line: #302D27;
+        --ink: #EDE8DF;
+        --ink-muted: #A39D90;
+        --ink-faint: #4A463E;
+        --accent: #F08A62;
     }
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { font-size: 100%; font-optical-sizing: auto; scroll-behavior: smooth; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    font-size: 100%;
+    font-optical-sizing: auto;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
 
 body {
     font-family: var(--text);
@@ -38,137 +51,266 @@ body {
     color: var(--ink);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-/* Tighter container for a high-end editorial feel */
+img { display: block; max-width: 100%; }
+
+::selection { background: var(--accent); color: var(--paper); }
+
 .container {
-    max-width: 800px; 
+    max-width: var(--max);
     margin: 0 auto;
-    padding: 0 32px;
+    padding-inline: max(var(--gutter), env(safe-area-inset-left)) max(var(--gutter), env(safe-area-inset-right));
 }
 
 h1, h2, h3 {
     font-family: var(--display);
     color: var(--ink);
     font-weight: 400;
+    text-wrap: balance;
 }
 
 a {
     color: var(--ink);
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), background-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
-a:hover { color: var(--accent); }
 
-/* --- HERO SECTION --- */
-/* This makes the top section act like a real website header, taking up 70% of the screen height */
+a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* ---------- HERO ---------- */
 .hero {
-    min-height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: 100vh;
+    min-height: min(100svh, 980px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(180px, 22vw, 280px);
+    grid-template-areas:
+        "name  photo"
+        "sub   photo"
+        "social photo";
+    column-gap: clamp(24px, 5vw, 72px);
+    align-content: end;
+    align-items: end;
+    padding-block: clamp(96px, 14vh, 160px) clamp(40px, 7vh, 72px);
     border-bottom: 1px solid var(--line);
-    padding-bottom: 60px;
-    margin-bottom: 80px;
+    margin-bottom: clamp(72px, 12vw, 160px);
 }
 
 .profile-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 8px;
+    grid-area: photo;
+    grid-row: 1 / -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
-    margin-bottom: 32px;
+    border-radius: 6px;
     border: 1px solid var(--line);
+    align-self: end;
 }
 
 .hero h1 {
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    line-height: 0.9;
-    letter-spacing: -0.04em;
-    margin-bottom: 16px;
+    grid-area: name;
+    font-size: clamp(3.5rem, 12.5vw, 10.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.045em;
+    text-wrap: nowrap;
 }
 
+.hero h1 span { display: block; }
+
 .subtitle {
-    font-size: 1.75rem;
-    color: var(--ink-muted);
-    font-weight: 300;
-    margin-bottom: 40px;
-    font-family: var(--text);
+    grid-area: sub;
+    font-family: var(--display);
+    font-style: italic;
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+    line-height: 1.2;
+    color: var(--accent);
+    margin-top: clamp(20px, 3vw, 36px);
 }
 
 .social-links {
+    grid-area: social;
     display: flex;
-    gap: 24px;
+    gap: 12px;
+    margin-top: clamp(28px, 4vw, 48px);
+}
+
+.social-links a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
 }
 
 .social-icon {
-    width: 28px;
-    height: 28px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
+    width: 22px;
+    height: 22px;
 }
 
 @media (prefers-color-scheme: dark) {
-    /* If an icon has a solid background, the invert might make it a white square. We soften it slightly. */
     .social-icon { filter: invert(1) brightness(0.85); }
 }
-.social-icon:hover { transform: translateY(-3px); opacity: 0.7; }
 
-/* --- SECTIONS --- */
-.section-padding {
-    margin-bottom: 120px;
+@media (hover: hover) {
+    .social-links a:hover {
+        border-color: var(--accent);
+        background-color: var(--surface);
+        transform: translateY(-3px);
+    }
 }
 
-h2 {
-    font-size: 3rem;
-    margin-bottom: 40px;
+/* ---------- SECTIONS ---------- */
+.section {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: clamp(24px, 5vw, 72px);
+    margin-bottom: clamp(88px, 14vw, 180px);
+}
+
+.container { counter-reset: section; }
+.section h2 { counter-increment: section; }
+
+.section h2 {
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    line-height: 1;
     letter-spacing: -0.02em;
+    align-self: start;
+    position: sticky;
+    top: 40px;
 }
 
-/* --- ABOUT PROSE --- */
+.section h2::before {
+    content: "0" counter(section);
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    margin-bottom: 16px;
+}
+
+/* ---------- ABOUT ---------- */
 .prose {
-    max-width: 65ch;
-    font-size: 1.125rem;
+    max-width: 62ch;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
     line-height: 1.8;
 }
 
 .prose p {
-    margin-bottom: 24px;
     color: var(--ink-muted);
+    margin-bottom: 1.4em;
+    text-wrap: pretty;
 }
 
-/* The first paragraph acts as a 'lead' (larger, brighter) to draw the eye in */
 .prose p:first-child {
-    font-size: 1.5rem;
+    font-family: var(--display);
+    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
     color: var(--ink);
-    line-height: 1.4;
-    margin-bottom: 32px;
+    margin-bottom: 1.1em;
+    text-wrap: balance;
 }
 
-/* --- CONTACT --- */
+.prose p:last-child { margin-bottom: 0; }
+
+/* ---------- CONTACT ---------- */
 .contact {
     border-top: 1px solid var(--line);
-    padding-top: 80px;
-    padding-bottom: 120px;
+    padding-top: clamp(48px, 8vw, 96px);
+    padding-bottom: clamp(56px, 9vw, 120px);
+    margin-bottom: 0;
+    align-items: start;
 }
 
 .email-link {
-    display: inline-block;
-    font-size: 2.5rem;
+    justify-self: start;
     font-family: var(--display);
-    color: var(--ink);
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 4px;
-}
-.email-link:hover {
-    color: var(--accent);
+    font-size: clamp(1.3rem, 4.6vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid var(--ink-faint);
+    padding-bottom: 6px;
 }
 
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .hero { min-height: 50vh; padding-top: 80px;}
-    h2 { font-size: 2.5rem; }
-    .email-link { font-size: 1.75rem; }
-    .prose { font-size: 1rem; }
-    .prose p:first-child { font-size: 1.25rem; }
-    .section-padding { margin-bottom: 80px; }
+.email-link::after {
+    content: "\2197";
+    display: inline-block;
+    margin-left: 0.25em;
+    color: var(--accent);
+    transition: transform 0.4s var(--ease);
+}
+
+@media (hover: hover) {
+    .email-link:hover { color: var(--accent); border-color: var(--accent); }
+    .email-link:hover::after { transform: translate(4px, -4px); }
+}
+
+/* ---------- MOTION ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes rise {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    .hero > * { animation: rise 1s var(--ease) both; }
+    .hero h1 { animation-delay: 0.05s; }
+    .subtitle { animation-delay: 0.15s; }
+    .social-links { animation-delay: 0.25s; }
+    .profile-photo { animation-delay: 0.1s; }
+
+    @supports (animation-timeline: view()) {
+        .section > * {
+            animation: rise linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 40%;
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition-duration: 0.01ms !important; }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 860px) {
+    .hero {
+        grid-template-columns: 1fr;
+        grid-template-areas: "photo" "name" "sub" "social";
+        min-height: auto;
+        padding-top: 88px;
+    }
+
+    .profile-photo {
+        grid-row: auto;
+        width: 112px;
+        aspect-ratio: 1;
+        margin-bottom: 32px;
+    }
+
+    .section { grid-template-columns: 1fr; }
+
+    .section h2 {
+        position: static;
+        margin-bottom: 32px;
+    }
+}
+
+@media (max-width: 380px) {
+    .social-links a { width: 44px; height: 44px; }
+}
+
+@media print {
+    .hero { min-height: auto; }
+    .section > * { animation: none !important; }
 }
