@@ -79,3 +79,14 @@ a:focus-visible {
 .social-links a {
     font-weight: 500;
 }
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-icon:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
