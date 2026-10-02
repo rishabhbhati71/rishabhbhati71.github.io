@@ -1,18 +1,36 @@
 /* 
  * CSS for rishabhbhati71.github.io
- * Theme: Modern Minimalism
+ * Theme: Elite Portfolio Design System (Anti-Slop)
  */
 
 :root {
-    /* Colors */
-    --bg-color: #ffffff;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
-    --accent: #2563eb; /* Soft blue placeholder, we can adjust later */
+    /* Colors - Light Mode (Premium Warm) */
+    --paper: #FAF9F7;
+    --surface: #FFFFFF;
+    --surface-2: #F5F0E8;
+    --line: #E8E4DC;
+    --ink: #1E1C18;
+    --ink-muted: #8A8578;
+    --ink-faint: #D6CDC2;
+    --accent: #E85D3A;
 
     /* Typography */
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --display: 'Instrument Serif', Georgia, serif;
+    --text: 'Geist', system-ui, sans-serif;
+}
+
+/* Optional Dark Mode - can be triggered later */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #12110F;
+        --surface: #1E1C18;
+        --surface-2: #25221D;
+        --line: #33302A;
+        --ink: #E8E4DC;
+        --ink-muted: #8A8578;
+        --ink-faint: #4A4740;
+        --accent: #FF8A5B;
+    }
 }
 
 * {
@@ -21,40 +39,48 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family: var(--font-body);
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
+html {
+    font-size: 100%;
+    font-optical-sizing: auto;
 }
 
-/* Container to center content and restrict max width */
+body {
+    font-family: var(--text);
+    background-color: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
 .container {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 24px; /* 8-point grid padding */
+    padding: 0 24px;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    line-height: 1.2;
-    margin-bottom: 16px;
-    color: var(--text-main);
+    font-family: var(--display);
+    color: var(--ink);
+    font-weight: 400; /* Instrument Serif shines at 400 weight */
+}
+
+h1 {
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.032em;
+    font-variation-settings: "opsz" 144;
 }
 
 a {
-    color: var(--accent);
+    color: var(--ink);
     text-decoration: none;
-    transition: opacity 0.2s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 a:hover {
-    opacity: 0.8;
+    color: var(--accent);
 }
 
-/* Accessibility: Visible focus states for keyboard navigation */
 a:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
@@ -62,12 +88,11 @@ a:focus-visible {
 
 /* Hero Section */
 .hero {
-    margin-top: 120px; /* Push content down for a clean look */
+    margin-top: 120px;
 }
 
 .hero h1 {
-    font-size: 3rem;
-    margin-bottom: 8px;
+    margin-bottom: 24px;
 }
 
 .social-links {
@@ -76,14 +101,17 @@ a:focus-visible {
     gap: 24px;
 }
 
-.social-links a {
-    font-weight: 500;
-}
-
 .social-icon {
-    width: 24px;
+    width: 24px; /* Default size, overridden by HTML width/height for safety */
     height: 24px;
     transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Invert icons in dark mode so they are visible against the dark background */
+@media (prefers-color-scheme: dark) {
+    .social-icon {
+        filter: invert(1) brightness(0.9);
+    }
 }
 
 .social-icon:hover {
